@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony John Francisco's Boracay & Palawan Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        #auth-page {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00bfff, #ffd700);
+        }
+        .auth-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .toggle, .back-link {
+            margin-top: 15px;
+            color: #0066cc;
+            cursor: pointer;
+        }
+        /* Pages */
+        .page {
+            display: none;
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            position: relative;
+        }
+        #profile-page {
+            display: block;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0066cc, #00bfff);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .hero-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .hero-text h1 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+        }
+        .hero-text p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        .stats {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .section-links {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding-bottom: 15px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .section-links::-webkit-scrollbar {
+            height: 8px;
+        }
+        .section-links::-webkit-scrollbar-thumb {
+            background: #0066cc;
+            border-radius: 10px;
+        }
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 380px;
+            flex-shrink: 0;
+        }
+        .section-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .section-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .section-card-content {
+            padding: 20px;
+        }
+        .section-card-content h2 {
+            color: #0066cc;
+            margin: 0 0 10px 0;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #0066cc;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
+        .back-button:hover {
+            background: #0055aa;
+        }
+        .frame {
+            border: 5px solid #ffd700;
+            padding: 15px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #0066cc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #00bfff;
+            color: white;
+        }
+        #forgot-form {
+            display: none;
+        }
+
+        .story-video {
+            width: 100%;
+            max-width: 520px;
+            margin: 30px auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="auth-page">
+        <div class="auth-box">
+            <h1>Welcome</h1>
+            <p>Login to continue</p>
+          
+            <div id="login-form">
+                <input type="email" id="email" placeholder="Email" value="pblzac2009@gmail.com">
+                <input type="password" id="password" placeholder="Password">
+                <button onclick="login()">Login</button>
+                <div class="toggle" onclick="toggleForm()">Sign Up</div>
+                <div class="back-link" onclick="showForgotPassword()">Forgot Password?</div>
+            </div>
+            <div id="signup-form" style="display: none;">
+                <input type="text" id="signup-name" placeholder="Full Name">
+                <input type="email" id="signup-email" placeholder="Email">
+                <input type="password" id="signup-password" placeholder="Password">
+                <button onclick="signup()">Sign Up</button>
+                <div class="toggle" onclick="toggleForm()">Back to Login</div>
+            </div>
+            <!-- Forgot Password Form -->
+            <div id="forgot-form">
+                <h2>Reset Password</h2>
+                <p>Enter your email to reset your password</p>
+                <input type="email" id="forgot-email" placeholder="Email" value="pblzac2009@gmail.com">
+                <input type="password" id="new-password" placeholder="New Password">
+                <button onclick="resetPassword()">Reset Password</button>
+                <div class="back-link" onclick="backToLogin()">Back to Login</div>
+            </div>
+        </div>
+    </div>
+    <div id="profile-page" class="page">
+        <div class="hero">
+            <img src="https://www.image2url.com/r2/default/images/1781575101378-5a84601f-d681-45a5-98ff-4986738cab4b.jpg"
+                 alt="Anthony John Francisco" class="hero-photo">
+            <div class="hero-text">
+                <h1>Anthony John Francisco</h1>
+                <p>Student • Aspiring Software Developer • Creative Explorer</p>
+                <p>Favorite Color: Light Blue / Gold
+                   Favorite Food: Buttered steak with fried eggs <br>
+                   Dream Job: Software Developer
+            </p>
+                <br>
+                <p><strong>I am happy to know you that I completed many successful projects in my academic journey!</strong></p>
+                <br>
+                <h5> Email: pblzac2009@gmail.com <br>
+                Facebook: Anthony John Francisco</h5>
+            </div>
+        </div>
+        <div class="stats">
+            <h2 style="color:#0066cc;">Passionate about Technology, Design &amp; Adventure</h2>
+            <p style="font-size:18px;">Exploring the beauty of Palawan and Boracay while building my future in software development.</p>
+        </div>
+        <h2 style="text-align:center; color:#0066cc; margin:30px 0 15px 0;">My Projects &amp; Guides</h2>
+        <div class="section-links">
+            <div class="section-card" onclick="showPage('palawan-page')">
+                <img src="https://www.image2url.com/r2/default/images/1781574785157-4c200c1e-2ac7-43fa-979a-8e3c2450f6be.jpg"
+                     alt="Palawan">
+                <div class="section-card-content">
+                    <h2>Welcome to Palawan</h2>
+                    <p>Discover breathtaking beaches, underground rivers, and rich history.</p>
+                </div>
+            </div>
+            <div class="section-card" onclick="showPage('story-page')">
+                <img src="https://www.image2url.com/r2/default/images/1781596871326-7a781d88-073e-4b4c-811f-3406daf15cd8.jpg"
+                     alt="School Field">
+                <div class="section-card-content">
+                    <h2>My Story Through Pictures and Video</h2>
+                    <p>Capturing moments from my school life and creative journey.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="palawan-page" class="page">
+        <button class="back-button" onclick="showPage('profile-page')">← Back to Home</button>
+        <div class="frame">
+            <h1>Welcome to PALAWAN!</h1>
+            <img src="https://www.image2url.com/r2/default/images/1781574785157-4c200c1e-2ac7-43fa-979a-8e3c2450f6be.jpg"
+                 alt="Palawan" width="100%">
+            <h2>Description of the Place</h2>
+            <p>
+                Palawan is a province in the western Philippines known for its beautiful beaches,
+                clear blue waters, limestone cliffs, and rich marine life. It is one of the country's
+                most popular tourist destinations.
+            </p>
+            <h2>History of Palawan</h2>
+            <p>
+                The history of Palawan reflects the development of its communities, culture, and
+                natural heritage through the years. Known as one of the oldest inhabited areas in the Philippines.
+            </p>
+            <h2>Top Attractions</h2>
+            <ul>
+                <li>Puerto Princesa Underground River</li>
+                <li>Big Lagoon and Secret Lagoon</li>
+                <li>Kayangan Lake</li>
+                <li>Nacpan & Calitang Twin Beaches</li>
+                <li>WWII Japanese Shipwrecks</li>
+            </ul>
+            <h2>Estimated Budget</h2>
+            <table border="1" cellpadding="10">
+                <tr>
+                    <th>Expense</th>
+                    <th>Estimated Cost (PHP)</th>
+                </tr>
+                <tr><td>Transportation</td><td>2,500-7,500</td></tr>
+                <tr><td>Accommodation</td><td>3,000</td></tr>
+                <tr><td>Food</td><td>1,500</td></tr>
+                <tr><td>Activities</td><td>3,500</td></tr>
+                <tr><td><strong>Total</strong></td><td><strong>10,500-15,500</strong></td></tr>
+            </table>
+        </div>
+    </div>
+    <div id="story-page" class="page">
+        <button class="back-button" onclick="showPage('profile-page')">← Back to Home</button>
+        <div class="frame">
+            <h1>MY STORY THROUGH PICTURES AND VIDEO</h1>
+            <h2>School Field Walk</h2>
+            <img src="https://www.image2url.com/r2/default/images/1781596871326-7a781d88-073e-4b4c-811f-3406daf15cd8.jpg"
+                 alt="School Field" width="100%">
+            <h2>My Reflection</h2>
+            <p>
+                Today I took this <strong>photo</strong> of my friends walking in the fields during our project.
+                The weather was great, which increased my productivity. Walking in these fields is a calming experience.
+            </p>
+            <p>
+                The view inspires me and gives a strong aura of creativity.
+            </p>
+            <h2>Events Related to This Photo</h2>
+            <ul>
+                <li>During break I decided to walk around the school</li>
+                <li>I saw the beautiful lighting and took out my phone</li>
+                <li>I took several photos and made a masterpiece</li>
+                <li>I chose this photo for my HTML project</li>
+                <li>I went back to class feeling more creative and motivated</li>
+            </ul>
+            <h2>Things Visible in the Photo</h2>
+            <ul>
+                <li>Clouds on the horizon</li>
+                <li>Sun rays lighting up the fields</li>
+                <li>School building overseeing the grassland</li>
+                <li>My friends heading back to our room</li>
+                <li>Peace and serenity</li>
+            </ul>
+
+            <h2>My Story Video</h2>
+            <video class="story-video" controls autoplay muted loop>
+                <source src="https://videotourl.com/videos/1782109097747-63894156-ab72-4ce6-be4c-deeb64751ee4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <script>
+        let user = {
+            email: "pblzac2009@gmail.com",
+            password: "",
+            name: "Anthony John Francisco"
+        };
+        function toggleForm() {
+            const login = document.getElementById('login-form');
+            const signup = document.getElementById('signup-form');
+            login.style.display = (login.style.display === 'none') ? 'block' : 'none';
+            signup.style.display = (signup.style.display === 'none') ? 'block' : 'none';
+            document.getElementById('forgot-form').style.display = 'none';
+        }
+        function showForgotPassword() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('forgot-form').style.display = 'block';
+        }
+        function backToLogin() {
+            document.getElementById('forgot-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (email === user.email && password === user.password && user.password !== "") {
+                document.getElementById('auth-page').style.display = 'none';
+                showPage('profile-page');
+            } else {
+                alert("Invalid email or password. Please sign up first or reset your password.");
+            }
+        }
+        function signup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            if (name && email && password) {
+                user.name = name;
+                user.email = email;
+                user.password = password;
+                alert("Account created successfully!");
+                document.getElementById('auth-page').style.display = 'none';
+                showPage('profile-page');
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+        function resetPassword() {
+            const email = document.getElementById('forgot-email').value;
+            const newPassword = document.getElementById('new-password').value;
+            if (email === user.email && newPassword) {
+                user.password = newPassword;
+                alert("Password has been successfully reset! You can now login with your new password.");
+                backToLogin();
+                document.getElementById('new-password').value = '';
+            } else {
+                alert("Email not found or new password is empty.");
+            }
+        }
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+           
+            const targetPage = document.getElementById(pageId);
+            targetPage.style.display = 'block';
+            window.scrollTo(0, 0);
+            document.querySelectorAll('.back-button').forEach(btn => {
+                btn.style.display = (pageId === 'profile-page') ? 'none' : 'block';
+            });
+        }
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === "Enter") login();
+        });
+    </script>
+</body>
+</html>
