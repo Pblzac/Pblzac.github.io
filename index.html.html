@@ -11,14 +11,22 @@
             padding: 0;
             background-color: #f0f8ff;
         }
+
         #auth-page {
-            height: 100vh;
-            display: flex;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #00bfff, #ffd700);
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
         }
+
         .auth-box {
+            position: relative;
             background: white;
             padding: 30px;
             border-radius: 10px;
@@ -26,13 +34,32 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+
+        .close-auth-btn {
+            position: absolute;
+            top: 10px;
+            left: 145px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .close-auth-btn:hover {
+            color: #333;
+        }
+
         input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
         }
+
         button {
             width: 100%;
             padding: 12px;
@@ -43,12 +70,34 @@
             font-size: 16px;
             cursor: pointer;
         }
+
         .toggle, .back-link {
             margin-top: 15px;
             color: #0066cc;
             cursor: pointer;
         }
-        /* Pages */
+
+        #login-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #0066cc;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: auto;
+        }
+
+        #login-btn:hover {
+            background: #0055aa;
+        }
+
         .page {
             display: none;
             max-width: 1100px;
@@ -56,9 +105,7 @@
             padding: 20px;
             position: relative;
         }
-        #profile-page {
-            display: block;
-        }
+
         .hero {
             background: linear-gradient(135deg, #0066cc, #00bfff);
             color: white;
@@ -69,6 +116,7 @@
             gap: 40px;
             margin-bottom: 40px;
         }
+
         .hero-photo {
             width: 280px;
             height: 280px;
@@ -76,14 +124,17 @@
             border: 8px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+
         .hero-text h1 {
             font-size: 48px;
             margin: 0 0 10px 0;
         }
+
         .hero-text p {
             font-size: 18px;
             opacity: 0.95;
         }
+
         .stats {
             background: white;
             padding: 30px;
@@ -92,6 +143,7 @@
             margin-bottom: 40px;
             text-align: center;
         }
+
         .section-links {
             display: flex;
             overflow-x: auto;
@@ -100,13 +152,16 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
+
         .section-links::-webkit-scrollbar {
             height: 8px;
         }
+
         .section-links::-webkit-scrollbar-thumb {
             background: #0066cc;
             border-radius: 10px;
         }
+
         .section-card {
             background: white;
             border-radius: 12px;
@@ -117,22 +172,27 @@
             min-width: 380px;
             flex-shrink: 0;
         }
+
         .section-card:hover {
             transform: scale(1.03);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
+
         .section-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
         }
+
         .section-card-content {
             padding: 20px;
         }
+
         .section-card-content h2 {
             color: #0066cc;
             margin: 0 0 10px 0;
         }
+
         .back-button {
             position: fixed;
             top: 20px;
@@ -148,10 +208,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             z-index: 1000;
             display: none;
+            width: auto;
         }
+
         .back-button:hover {
             background: #0055aa;
         }
+
         .frame {
             border: 5px solid #ffd700;
             padding: 15px;
@@ -159,28 +222,34 @@
             background: white;
             border-radius: 8px;
         }
+
         img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
+
         h1, h2 {
             color: #0066cc;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
+
         th {
             background-color: #00bfff;
             color: white;
         }
+
         #forgot-form {
             display: none;
         }
@@ -196,11 +265,16 @@
     </style>
 </head>
 <body>
+
     <div id="auth-page">
         <div class="auth-box">
+
+            <!-- ✕ Close button so visitors can dismiss without logging in -->
+            <button class="close-auth-btn" onclick="showPage('profile-page')">✕</button>
+
             <h1>Welcome</h1>
             <p>Login to continue</p>
-          
+
             <div id="login-form">
                 <input type="email" id="email" placeholder="Email" value="pblzac2009@gmail.com">
                 <input type="password" id="password" placeholder="Password">
@@ -208,6 +282,7 @@
                 <div class="toggle" onclick="toggleForm()">Sign Up</div>
                 <div class="back-link" onclick="showForgotPassword()">Forgot Password?</div>
             </div>
+
             <div id="signup-form" style="display: none;">
                 <input type="text" id="signup-name" placeholder="Full Name">
                 <input type="email" id="signup-email" placeholder="Email">
@@ -215,7 +290,7 @@
                 <button onclick="signup()">Sign Up</button>
                 <div class="toggle" onclick="toggleForm()">Back to Login</div>
             </div>
-            <!-- Forgot Password Form -->
+
             <div id="forgot-form">
                 <h2>Reset Password</h2>
                 <p>Enter your email to reset your password</p>
@@ -224,9 +299,15 @@
                 <button onclick="resetPassword()">Reset Password</button>
                 <div class="back-link" onclick="backToLogin()">Back to Login</div>
             </div>
+
         </div>
     </div>
+
     <div id="profile-page" class="page">
+
+        <!-- Login button fixed to top-left — only visible on profile page -->
+        <button id="login-btn" onclick="showPage('auth-page')"> Login</button>
+
         <div class="hero">
             <img src="https://www.image2url.com/r2/default/images/1781575101378-5a84601f-d681-45a5-98ff-4986738cab4b.jpg"
                  alt="Anthony John Francisco" class="hero-photo">
@@ -236,19 +317,22 @@
                 <p>Favorite Color: Light Blue / Gold
                    Favorite Food: Buttered steak with fried eggs <br>
                    Dream Job: Software Developer
-            </p>
+                </p>
                 <br>
                 <p><strong>I am happy to know you that I completed many successful projects in my academic journey!</strong></p>
                 <br>
-                <h5> Email: pblzac2009@gmail.com <br>
+                <h5>Email: pblzac2009@gmail.com <br>
                 Facebook: Anthony John Francisco</h5>
             </div>
         </div>
+
         <div class="stats">
             <h2 style="color:#0066cc;">Passionate about Technology, Design &amp; Adventure</h2>
             <p style="font-size:18px;">Exploring the beauty of Palawan and Boracay while building my future in software development.</p>
         </div>
+
         <h2 style="text-align:center; color:#0066cc; margin:30px 0 15px 0;">My Projects &amp; Guides</h2>
+
         <div class="section-links">
             <div class="section-card" onclick="showPage('palawan-page')">
                 <img src="https://www.image2url.com/r2/default/images/1781574785157-4c200c1e-2ac7-43fa-979a-8e3c2450f6be.jpg"
@@ -268,6 +352,7 @@
             </div>
         </div>
     </div>
+
     <div id="palawan-page" class="page">
         <button class="back-button" onclick="showPage('profile-page')">← Back to Home</button>
         <div class="frame">
@@ -290,11 +375,11 @@
                 <li>Puerto Princesa Underground River</li>
                 <li>Big Lagoon and Secret Lagoon</li>
                 <li>Kayangan Lake</li>
-                <li>Nacpan & Calitang Twin Beaches</li>
+                <li>Nacpan &amp; Calitang Twin Beaches</li>
                 <li>WWII Japanese Shipwrecks</li>
             </ul>
             <h2>Estimated Budget</h2>
-            <table border="1" cellpadding="10">
+            <table>
                 <tr>
                     <th>Expense</th>
                     <th>Estimated Cost (PHP)</th>
@@ -307,6 +392,7 @@
             </table>
         </div>
     </div>
+
     <div id="story-page" class="page">
         <button class="back-button" onclick="showPage('profile-page')">← Back to Home</button>
         <div class="frame">
@@ -338,7 +424,6 @@
                 <li>My friends heading back to our room</li>
                 <li>Peace and serenity</li>
             </ul>
-
             <h2>My Story Video</h2>
             <video class="story-video" controls autoplay muted loop>
                 <source src="https://videotourl.com/videos/1782109097747-63894156-ab72-4ce6-be4c-deeb64751ee4.mp4" type="video/mp4">
@@ -346,12 +431,14 @@
             </video>
         </div>
     </div>
+
     <script>
         let user = {
             email: "pblzac2009@gmail.com",
             password: "",
             name: "Anthony John Francisco"
         };
+
         function toggleForm() {
             const login = document.getElementById('login-form');
             const signup = document.getElementById('signup-form');
@@ -359,25 +446,28 @@
             signup.style.display = (signup.style.display === 'none') ? 'block' : 'none';
             document.getElementById('forgot-form').style.display = 'none';
         }
+
         function showForgotPassword() {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('signup-form').style.display = 'none';
             document.getElementById('forgot-form').style.display = 'block';
         }
+
         function backToLogin() {
             document.getElementById('forgot-form').style.display = 'none';
             document.getElementById('login-form').style.display = 'block';
         }
+
         function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             if (email === user.email && password === user.password && user.password !== "") {
-                document.getElementById('auth-page').style.display = 'none';
                 showPage('profile-page');
             } else {
                 alert("Invalid email or password. Please sign up first or reset your password.");
             }
         }
+
         function signup() {
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
@@ -387,12 +477,12 @@
                 user.email = email;
                 user.password = password;
                 alert("Account created successfully!");
-                document.getElementById('auth-page').style.display = 'none';
                 showPage('profile-page');
             } else {
                 alert("Please fill in all fields.");
             }
         }
+
         function resetPassword() {
             const email = document.getElementById('forgot-email').value;
             const newPassword = document.getElementById('new-password').value;
@@ -405,21 +495,34 @@
                 alert("Email not found or new password is empty.");
             }
         }
+
         function showPage(pageId) {
+            if (pageId === 'auth-page') {
+                document.getElementById('auth-page').style.display = 'flex';
+                return;
+            }
+
+            document.getElementById('auth-page').style.display = 'none';
+
             document.querySelectorAll('.page').forEach(page => {
                 page.style.display = 'none';
             });
-           
-            const targetPage = document.getElementById(pageId);
-            targetPage.style.display = 'block';
+
+            document.getElementById(pageId).style.display = 'block';
             window.scrollTo(0, 0);
+
+            const isProfile = pageId === 'profile-page';
             document.querySelectorAll('.back-button').forEach(btn => {
-                btn.style.display = (pageId === 'profile-page') ? 'none' : 'block';
+                btn.style.display = isProfile ? 'none' : 'block';
             });
+            document.getElementById('login-btn').style.display = isProfile ? 'block' : 'none';
         }
+
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === "Enter") login();
         });
+
+        showPage('profile-page');
     </script>
 </body>
 </html>
