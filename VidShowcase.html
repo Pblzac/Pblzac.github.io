@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #2f2f2f; /* Gray background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .showcase-container {
+            width: 80vw;
+            height: 80vh;
+            max-width: 1400px;
+            max-height: 800px;
+            background-color: #1e1e1e;
+            border: 8px solid #81d4fa; /* Light blue border */
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #263238;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-bottom: 1px solid #81d4fa;
+        }
+        
+        .video-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #111;
+            position: relative;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #000;
+        }
+        
+        .controls-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .showcase-container:hover .controls-overlay {
+            display: block;
+        }
+        
+        footer {
+            padding: 12px;
+            text-align: center;
+            color: #81d4fa;
+            font-size: 0.95rem;
+            background-color: #263238;
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase-container">
+        <!-- Header -->
+        <div class="header">
+            Video Showcase
+        </div>
+        
+        <div class="video-wrapper">
+            <video id="showcaseVideo" controls autoplay loop muted>
+                <source src="https://videotourl.com/videos/1783575285290-26590e8d-6160-4adb-900c-1f560aa8dd95.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="controls-overlay">
+                Click to play/pause • Scroll to zoom
+            </div>
+        </div>
+        
+        <footer>
+            By: Francisco Anthony John
+        </footer>
+    </div>
+
+    <script>
+        const video = document.getElementById('showcaseVideo');
+        
+        video.addEventListener('click', () => {
+            video.muted = !video.muted;
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && document.activeElement.tagName !== "INPUT") {
+                e.preventDefault();
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+        });
+        
+        function resizeVideo() {
+            const container = document.querySelector('.showcase-container');
+            const aspectRatio = 16 / 9;
+            
+            let width = container.clientWidth;
+            let height = container.clientHeight - 120;
+            
+            const calculatedHeight = width / aspectRatio;
+            
+            if (calculatedHeight > height) {
+                video.style.width = 'auto';
+                video.style.height = height + 'px';
+            } else {
+                video.style.width = '100%';
+                video.style.height = 'auto';
+            }
+        }
+        
+        window.addEventListener('resize', resizeVideo);
+        window.addEventListener('load', resizeVideo);
+    </script>
+</body>
+</html>
