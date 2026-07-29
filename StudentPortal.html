@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#87CEFA,#32CD32); /* Light blue to Lime green */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:15px;
+}
+
+.container{
+    width:100%;
+    max-width:480px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+h1{
+    text-align:center;
+    color:#0B3D91;
+    margin-bottom:20px;
+    font-size:1.6rem;
+}
+
+.section{
+    margin-bottom:25px;
+    padding:15px;
+    border:2px solid #cce5ff;
+    border-radius:10px;
+    background:#f8fbff;
+}
+
+h2{
+    color:#1E3A8A;
+    margin-bottom:10px;
+    font-size:1.2rem;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+    font-size:0.95rem;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    margin-bottom:12px;
+    border:1px solid #aaa;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#1E3A8A;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    transition: background 0.2s;
+}
+
+button:hover{
+    background:#2563EB;
+}
+
+.result{
+    margin-top:12px;
+    font-size:1.1rem;
+    font-weight:bold;
+    word-wrap:break-word;
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 480px){
+    body{
+        padding:10px;
+        align-items:flex-start;
+        padding-top:20px;
+    }
+
+    .container{
+        padding:18px;
+        border-radius:12px;
+    }
+
+    h1{
+        font-size:1.4rem;
+        margin-bottom:15px;
+    }
+
+    h2{
+        font-size:1.1rem;
+    }
+
+    .section{
+        padding:12px;
+        margin-bottom:18px;
+    }
+
+    input,select,button{
+        padding:11px;
+        font-size:16px;
+    }
+
+    .result{
+        font-size:1rem;
+    }
+}
+
+/* ===== VERY SMALL PHONES ===== */
+@media (max-width: 360px){
+    h1{
+        font-size:1.25rem;
+    }
+    .container{
+        padding:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1> STUDENT PORTAL</h1>
+
+<div class="section">
+<h2>Student Grade Checker</h2>
+
+<label>Enter Grade:</label>
+<input type="number" id="grade" placeholder="Enter grade" inputmode="numeric">
+
+<button onclick="checkGrade()">Check Result</button>
+
+<p id="result" class="result"></p>
+</div>
+
+<div class="section">
+<h2>Student Portal Menu</h2>
+
+<label>Select Menu:</label>
+
+<select id="menu">
+<option>Home</option>
+<option>Profile</option>
+<option>Subjects</option>
+<option>Grades</option>
+<option>Logout</option>
+</select>
+
+<button onclick="openPage()">Open Page</button>
+
+<p id="output" class="result"></p>
+</div>
+
+<div class="section">
+<h2>Membership Checker (Bonus)</h2>
+
+<label>Enter Age:</label>
+
+<input type="number" id="age" placeholder="Enter age" inputmode="numeric">
+
+<button onclick="checkAge()">Check Membership</button>
+
+<p id="membership" class="result"></p>
+</div>
+
+</div>
+
+<script>
+function checkGrade(){
+    let grade = Number(document.getElementById("grade").value);
+    let result = document.getElementById("result");
+
+    if(isNaN(grade) || grade === ""){
+        result.innerHTML = "[ALERT!] Please enter a valid grade [ALERT!]";
+        result.style.color = "orange";
+        return;
+    }
+
+    if(grade >= 75){
+        result.innerHTML = " [Passed]";
+        result.style.color = "green";
+    }
+    else{
+        result.innerHTML = " [Failed]";
+        result.style.color = "red";
+    }
+}
+
+function openPage(){
+    let menu = document.getElementById("menu").value;
+    let output = document.getElementById("output");
+
+    switch(menu){
+        case "Home":
+            output.innerHTML = " [Welcome to Home Page]";
+            break;
+        case "Profile":
+            output.innerHTML = " [Viewing Student Profile]";
+            break;
+        case "Subjects":
+            output.innerHTML = " [Subject List]";
+            break;
+        case "Grades":
+            output.innerHTML = " [Viewing Grades]";
+            break;
+        case "Logout":
+            output.innerHTML = " [You have logged out]";
+            break;
+        default:
+            output.innerHTML = "[Invalid Menu]";
+    }
+}
+
+function checkAge(){
+    let age = Number(document.getElementById("age").value);
+    let membership = document.getElementById("membership");
+
+    if(isNaN(age) || age === ""){
+        membership.innerHTML = "[ALER!] Please enter a valid age [ALERT!]";
+        membership.style.color = "orange";
+        return;
+    }
+
+    if(age >= 18){
+        membership.innerHTML = " [Eligible for Student Council]";
+        membership.style.color = "green";
+    }
+    else{
+        membership.innerHTML = " [Not Eligible]";
+        membership.style.color = "red";
+    }
+}
+</script>
+
+</body>
+</html>
