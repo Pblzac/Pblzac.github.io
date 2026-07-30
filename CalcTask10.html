@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffffff, #808080, #000000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calc {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 320px;
+        }
+        .display {
+            background: #000;
+            color: #0f0;
+            font-size: 2.3rem;
+            text-align: right;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            min-height: 70px;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.8);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            height: 60px;
+            font-size: 1.4rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        button:active { transform: scale(0.95); }
+        .num { background: #3a3a3a; color: white; }
+        .op { background: #ff9500; color: white; font-weight: bold; }
+        .clear { background: #ff3b30; color: white; }
+        .zero { grid-column: span 2; }
+    </style>
+</head>
+<body>
+    <div class="calc">
+        <div class="display" id="d">0</div>
+       
+        <div class="buttons">
+            <button class="clear" onclick="c()">AC</button>
+            <button onclick="t()">+/-</button>
+            <button onclick="o('%')">%</button>
+            <button class="op" onclick="o('/')">÷</button>
+           
+            <button class="num" onclick="n('7')">7</button>
+            <button class="num" onclick="n('8')">8</button>
+            <button class="num" onclick="n('9')">9</button>
+            <button class="op" onclick="o('*')">×</button>
+           
+            <button class="num" onclick="n('4')">4</button>
+            <button class="num" onclick="n('5')">5</button>
+            <button class="num" onclick="n('6')">6</button>
+            <button class="op" onclick="o('-')">−</button>
+           
+            <button class="num" onclick="n('1')">1</button>
+            <button class="num" onclick="n('2')">2</button>
+            <button class="num" onclick="n('3')">3</button>
+            <button class="op" onclick="o('+')">+</button>
+           
+            <button class="num zero" onclick="n('0')">0</button>
+            <button class="num" onclick="n('.')">.</button>
+            <button onclick="eq()">=</button>
+        </div>
+    </div>
+    <script>
+        let d = document.getElementById('d');
+        let input = '0';
+        let reset = false;
+        function update() { d.textContent = input; }
+        function n(num) {
+            if (reset) { input = ''; reset = false; }
+            if (num === '.' && input.includes('.')) return;
+            input = (input === '0' && num !== '0' && num !== '.') ? num : input + num;
+            update();
+        }
+        function o(op) {
+            if (reset) reset = false;
+            if (/[+\-*/%]$/.test(input)) input = input.slice(0, -1);
+            input += op;
+            update();
+        }
+        function eq() {
+            try {
+                let expr = input
+                    .replace(/×/g,'*')
+                    .replace(/÷/g,'/')
+                    .replace(/−/g,'-');
+                let res = eval(expr);
+                input = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
+            } catch(e) {
+                input = 'Error';
+            }
+            reset = true;
+            update();
+        }
+        function c() {
+            input = '0';
+            reset = false;
+            update();
+        }
+        function t() {
+            if (input === '0' || input === 'Error') return;
+            input = input.startsWith('-') ? input.slice(1) : '-' + input;
+            update();
+        }
+        // Keyboard support
+        document.addEventListener('keydown', e => {
+            if ('0123456789'.includes(e.key))
