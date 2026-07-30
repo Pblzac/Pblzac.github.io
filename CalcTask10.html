@@ -14,6 +14,25 @@
             height: 100vh;
             margin: 0;
         }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #ff9500;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.2s, transform 0.15s;
+        }
+        .back-button:hover {
+            background-color: #ffb340;
+            transform: translateY(-2px);
+        }
         .calc {
             background: #2c2c2c;
             padding: 15px;
@@ -52,30 +71,33 @@
     </style>
 </head>
 <body>
+    <!-- Back button (top left) -->
+    <a href="https://pblzac.github.io/index.html" class="back-button">← Back</a>
+
     <div class="calc">
         <div class="display" id="d">0</div>
-       
+      
         <div class="buttons">
             <button class="clear" onclick="c()">AC</button>
             <button onclick="t()">+/-</button>
             <button onclick="o('%')">%</button>
             <button class="op" onclick="o('/')">÷</button>
-           
+          
             <button class="num" onclick="n('7')">7</button>
             <button class="num" onclick="n('8')">8</button>
             <button class="num" onclick="n('9')">9</button>
             <button class="op" onclick="o('*')">×</button>
-           
+          
             <button class="num" onclick="n('4')">4</button>
             <button class="num" onclick="n('5')">5</button>
             <button class="num" onclick="n('6')">6</button>
             <button class="op" onclick="o('-')">−</button>
-           
+          
             <button class="num" onclick="n('1')">1</button>
             <button class="num" onclick="n('2')">2</button>
             <button class="num" onclick="n('3')">3</button>
             <button class="op" onclick="o('+')">+</button>
-           
+          
             <button class="num zero" onclick="n('0')">0</button>
             <button class="num" onclick="n('.')">.</button>
             <button onclick="eq()">=</button>
@@ -124,4 +146,16 @@
         }
         // Keyboard support
         document.addEventListener('keydown', e => {
-            if ('0123456789'.includes(e.key))
+            if ('0123456789'.includes(e.key)) n(e.key);
+            else if (e.key === '.') n('.');
+            else if (e.key === '+') o('+');
+            else if (e.key === '-') o('-');
+            else if (e.key === '*') o('*');
+            else if (e.key === '/') o('/');
+            else if (e.key === '%') o('%');
+            else if (e.key === 'Enter' || e.key === '=') eq();
+            else if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') c();
+        });
+    </script>
+</body>
+</html>
