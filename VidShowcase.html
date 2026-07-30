@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+       
         body {
             background-color: #2f2f2f; /* Gray background */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,7 +20,28 @@
             justify-content: center;
             overflow: hidden;
         }
-        
+       
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #81d4fa;
+            color: #1e1e1e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.2s, transform 0.15s;
+        }
+       
+        .back-button:hover {
+            background-color: #4fc3f7;
+            transform: translateY(-2px);
+        }
+       
         .showcase-container {
             width: 80vw;
             height: 80vh;
@@ -34,7 +55,7 @@
             display: flex;
             flex-direction: column;
         }
-        
+       
         .header {
             background-color: #263238;
             color: white;
@@ -44,7 +65,7 @@
             font-weight: 600;
             border-bottom: 1px solid #81d4fa;
         }
-        
+       
         .video-wrapper {
             flex: 1;
             display: flex;
@@ -53,14 +74,14 @@
             background-color: #111;
             position: relative;
         }
-        
+       
         video {
             width: 100%;
             height: 100%;
             object-fit: contain;
             background-color: #000;
         }
-        
+       
         .controls-overlay {
             position: absolute;
             bottom: 20px;
@@ -73,11 +94,11 @@
             font-size: 0.9rem;
             display: none;
         }
-        
+       
         .showcase-container:hover .controls-overlay {
             display: block;
         }
-        
+       
         footer {
             padding: 12px;
             text-align: center;
@@ -88,35 +109,37 @@
     </style>
 </head>
 <body>
+    <!-- Back button (top left) -->
+    <a href="https://pblzac.github.io/index.html" class="back-button">← Back</a>
+
     <div class="showcase-container">
         <!-- Header -->
         <div class="header">
             Video Showcase
         </div>
-        
+       
         <div class="video-wrapper">
             <video id="showcaseVideo" controls autoplay loop muted>
                 <source src="https://videotourl.com/videos/1783575285290-26590e8d-6160-4adb-900c-1f560aa8dd95.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            
+           
             <div class="controls-overlay">
                 Click to play/pause • Scroll to zoom
             </div>
         </div>
-        
+       
         <footer>
             By: Francisco Anthony John
         </footer>
     </div>
-
     <script>
         const video = document.getElementById('showcaseVideo');
-        
+       
         video.addEventListener('click', () => {
             video.muted = !video.muted;
         });
-        
+       
         document.addEventListener('keydown', (e) => {
             if (e.key === ' ' && document.activeElement.tagName !== "INPUT") {
                 e.preventDefault();
@@ -127,16 +150,16 @@
                 }
             }
         });
-        
+       
         function resizeVideo() {
             const container = document.querySelector('.showcase-container');
             const aspectRatio = 16 / 9;
-            
+           
             let width = container.clientWidth;
             let height = container.clientHeight - 120;
-            
+           
             const calculatedHeight = width / aspectRatio;
-            
+           
             if (calculatedHeight > height) {
                 video.style.width = 'auto';
                 video.style.height = height + 'px';
@@ -145,7 +168,7 @@
                 video.style.height = 'auto';
             }
         }
-        
+       
         window.addEventListener('resize', resizeVideo);
         window.addEventListener('load', resizeVideo);
     </script>
