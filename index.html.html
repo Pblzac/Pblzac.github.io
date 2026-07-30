@@ -11,7 +11,6 @@
             padding: 0;
             background-color: #f0f8ff;
         }
-
         #auth-page {
             display: none;
             position: fixed;
@@ -24,7 +23,6 @@
             background: rgba(0, 0, 0, 0.6);
             z-index: 2000;
         }
-
         .auth-box {
             position: relative;
             background: white;
@@ -34,7 +32,6 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
         .close-auth-btn {
             position: absolute;
             top: 10px;
@@ -46,11 +43,9 @@
             color: #999;
             line-height: 1;
         }
-
         .close-auth-btn:hover {
             color: #333;
         }
-
         input {
             width: 100%;
             padding: 10px;
@@ -59,7 +54,6 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
-
         button {
             width: 100%;
             padding: 12px;
@@ -70,13 +64,11 @@
             font-size: 16px;
             cursor: pointer;
         }
-
         .toggle, .back-link {
             margin-top: 15px;
             color: #0066cc;
             cursor: pointer;
         }
-
         #login-btn {
             position: fixed;
             top: 20px;
@@ -93,11 +85,9 @@
             z-index: 1000;
             width: auto;
         }
-
         #login-btn:hover {
             background: #0055aa;
         }
-
         .page {
             display: none;
             max-width: 1100px;
@@ -105,7 +95,6 @@
             padding: 20px;
             position: relative;
         }
-
         .hero {
             background: linear-gradient(135deg, #0066cc, #00bfff);
             color: white;
@@ -116,25 +105,22 @@
             gap: 40px;
             margin-bottom: 40px;
         }
-
         .hero-photo {
             width: 280px;
             height: 280px;
             border-radius: 50%;
             border: 8px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: cover;
         }
-
         .hero-text h1 {
             font-size: 48px;
             margin: 0 0 10px 0;
         }
-
         .hero-text p {
             font-size: 18px;
             opacity: 0.95;
         }
-
         .stats {
             background: white;
             padding: 30px;
@@ -147,50 +133,55 @@
         .section-links {
             display: flex;
             overflow-x: auto;
-            gap: 25px;
-            padding-bottom: 15px;
+            gap: 20px;
+            padding: 10px 8px 20px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
         }
-
         .section-links::-webkit-scrollbar {
             height: 8px;
         }
-
         .section-links::-webkit-scrollbar-thumb {
             background: #0066cc;
             border-radius: 10px;
         }
-
         .section-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: all 0.3s;
-            min-width: 380px;
+            transition: all 0.3s ease;
             flex-shrink: 0;
+            scroll-snap-align: start;
+            min-width: min(340px, 85vw);
+            max-width: 380px;
         }
-
         .section-card:hover {
             transform: scale(1.03);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-
         .section-card img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
+            display: block;
         }
-
         .section-card-content {
-            padding: 20px;
+            padding: 18px;
         }
-
         .section-card-content h2 {
             color: #0066cc;
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
+            font-size: 1.35rem;
+        }
+        .section-card-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            color: #444;
         }
 
         .back-button {
@@ -210,11 +201,9 @@
             display: none;
             width: auto;
         }
-
         .back-button:hover {
             background: #0055aa;
         }
-
         .frame {
             border: 5px solid #ffd700;
             padding: 15px;
@@ -222,38 +211,31 @@
             background: white;
             border-radius: 8px;
         }
-
         img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
-
         h1, h2 {
             color: #0066cc;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
         }
-
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
-
         th {
             background-color: #00bfff;
             color: white;
         }
-
         #forgot-form {
             display: none;
         }
-
         .story-video {
             width: 100%;
             max-width: 520px;
@@ -262,19 +244,68 @@
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+                gap: 25px;
+            }
+            .hero-photo {
+                width: 200px;
+                height: 200px;
+            }
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .hero-text p {
+                font-size: 16px;
+            }
+            .page {
+                padding: 15px;
+                margin: 10px auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section-links {
+                gap: 14px;
+                padding: 8px 6px 18px;
+            }
+            .section-card {
+                min-width: 82vw;
+                max-width: 88vw;
+            }
+            .section-card img {
+                height: 170px;
+            }
+            .section-card-content {
+                padding: 14px;
+            }
+            .section-card-content h2 {
+                font-size: 1.2rem;
+            }
+            .section-card-content p {
+                font-size: 0.9rem;
+            }
+            .auth-box {
+                width: 90%;
+                max-width: 320px;
+            }
+            .close-auth-btn {
+                left: auto;
+                right: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-
     <div id="auth-page">
         <div class="auth-box">
-
-            <!-- ✕ Close button so visitors can dismiss without logging in -->
             <button class="close-auth-btn" onclick="showPage('profile-page')">✕</button>
-
             <h1>Welcome</h1>
             <p>Login to continue</p>
-
             <div id="login-form">
                 <input type="email" id="email" placeholder="Email" value="pblzac2009@gmail.com">
                 <input type="password" id="password" placeholder="Password">
@@ -282,7 +313,6 @@
                 <div class="toggle" onclick="toggleForm()">Sign Up</div>
                 <div class="back-link" onclick="showForgotPassword()">Forgot Password?</div>
             </div>
-
             <div id="signup-form" style="display: none;">
                 <input type="text" id="signup-name" placeholder="Full Name">
                 <input type="email" id="signup-email" placeholder="Email">
@@ -290,7 +320,6 @@
                 <button onclick="signup()">Sign Up</button>
                 <div class="toggle" onclick="toggleForm()">Back to Login</div>
             </div>
-
             <div id="forgot-form">
                 <h2>Reset Password</h2>
                 <p>Enter your email to reset your password</p>
@@ -299,29 +328,25 @@
                 <button onclick="resetPassword()">Reset Password</button>
                 <div class="back-link" onclick="backToLogin()">Back to Login</div>
             </div>
-
         </div>
     </div>
 
     <div id="profile-page" class="page">
-
-        <!-- Login button fixed to top-left — only visible on profile page -->
         <button id="login-btn" onclick="showPage('auth-page')"> Login</button>
-
         <div class="hero">
             <img src="https://www.image2url.com/r2/default/images/1781575101378-5a84601f-d681-45a5-98ff-4986738cab4b.jpg"
                  alt="Anthony John Francisco" class="hero-photo">
             <div class="hero-text">
                 <h1>Anthony John Francisco</h1>
                 <p>Student • Aspiring Software Developer • Creative Explorer</p>
-                <p>Favorite Color: Light Blue / Gold
-                   Favorite Food: Buttered steak with fried eggs <br>
+                <p>Favorite Color: Light Blue / Gold<br>
+                   Favorite Food: Buttered steak with fried eggs<br>
                    Dream Job: Software Developer
                 </p>
                 <br>
                 <p><strong>I am happy to know you that I completed many successful projects in my academic journey!</strong></p>
                 <br>
-                <h5>Email: pblzac2009@gmail.com <br>
+                <h5>Email: pblzac2009@gmail.com<br>
                 Facebook: Anthony John Francisco</h5>
             </div>
         </div>
@@ -332,8 +357,8 @@
         </div>
 
         <h2 style="text-align:center; color:#0066cc; margin:30px 0 15px 0;">My Projects &amp; Guides</h2>
-
         <div class="section-links">
+            <!-- Existing 1 -->
             <div class="section-card" onclick="showPage('palawan-page')">
                 <img src="https://www.image2url.com/r2/default/images/1781574785157-4c200c1e-2ac7-43fa-979a-8e3c2450f6be.jpg"
                      alt="Palawan">
@@ -342,12 +367,37 @@
                     <p>Discover breathtaking beaches, underground rivers, and rich history.</p>
                 </div>
             </div>
+
             <div class="section-card" onclick="showPage('story-page')">
                 <img src="https://www.image2url.com/r2/default/images/1781596871326-7a781d88-073e-4b4c-811f-3406daf15cd8.jpg"
                      alt="School Field">
                 <div class="section-card-content">
                     <h2>My Story Through Pictures and Video</h2>
                     <p>Capturing moments from my school life and creative journey.</p>
+                </div>
+            </div>
+
+            <div class="section-card" onclick="window.location.href='CalcTask10.html'">
+                <img src="https://cdn.phototourl.com/free/2026-07-30-6b0b174f-df6e-4bc3-b8e4-6d06a4f47d06.png" alt="Calculator Task 10">
+                <div class="section-card-content">
+                    <h2>Calculator Task 10</h2>
+                    <p>Interactive calculator project showcasing JavaScript logic and UI design.</p>
+                </div>
+            </div>
+
+            <div class="section-card" onclick="window.location.href='StudentPortal.html'">
+                <img src="https://cdn.phototourl.com/free/2026-07-30-1580ce21-36ad-4d15-bba8-236882c193d7.png" alt="Student Portal">
+                <div class="section-card-content">
+                    <h2>Student Portal</h2>
+                    <p>A complete student portal with login, dashboard, and academic features.</p>
+                </div>
+            </div>
+
+            <div class="section-card" onclick="window.location.href='VidShowcase.html'">
+                <img src="https://cdn.phototourl.com/free/2026-07-30-1b91de5a-90a9-4350-affd-7196ff39a143.png" alt="Video Showcase">
+                <div class="section-card-content">
+                    <h2>Video Showcase</h2>
+                    <p>Creative video presentation and media gallery project.</p>
                 </div>
             </div>
         </div>
@@ -438,7 +488,6 @@
             password: "",
             name: "Anthony John Francisco"
         };
-
         function toggleForm() {
             const login = document.getElementById('login-form');
             const signup = document.getElementById('signup-form');
@@ -446,18 +495,15 @@
             signup.style.display = (signup.style.display === 'none') ? 'block' : 'none';
             document.getElementById('forgot-form').style.display = 'none';
         }
-
         function showForgotPassword() {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('signup-form').style.display = 'none';
             document.getElementById('forgot-form').style.display = 'block';
         }
-
         function backToLogin() {
             document.getElementById('forgot-form').style.display = 'none';
             document.getElementById('login-form').style.display = 'block';
         }
-
         function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -467,7 +513,6 @@
                 alert("Invalid email or password. Please sign up first or reset your password.");
             }
         }
-
         function signup() {
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
@@ -482,7 +527,6 @@
                 alert("Please fill in all fields.");
             }
         }
-
         function resetPassword() {
             const email = document.getElementById('forgot-email').value;
             const newPassword = document.getElementById('new-password').value;
@@ -495,33 +539,26 @@
                 alert("Email not found or new password is empty.");
             }
         }
-
         function showPage(pageId) {
             if (pageId === 'auth-page') {
                 document.getElementById('auth-page').style.display = 'flex';
                 return;
             }
-
             document.getElementById('auth-page').style.display = 'none';
-
             document.querySelectorAll('.page').forEach(page => {
                 page.style.display = 'none';
             });
-
             document.getElementById(pageId).style.display = 'block';
             window.scrollTo(0, 0);
-
             const isProfile = pageId === 'profile-page';
             document.querySelectorAll('.back-button').forEach(btn => {
                 btn.style.display = isProfile ? 'none' : 'block';
             });
             document.getElementById('login-btn').style.display = isProfile ? 'block' : 'none';
         }
-
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === "Enter") login();
         });
-
         showPage('profile-page');
     </script>
 </body>
